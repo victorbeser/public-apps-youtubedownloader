@@ -1,4 +1,4 @@
-# Youtube Download
+# Youtube Downloader por @victorbeser
 
 Programa simples e básico para downloads utilizando Links do Youtube.
 
