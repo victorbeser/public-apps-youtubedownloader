@@ -24,7 +24,7 @@
 ##########################################################################
 
 
-# IMPORTE OS MÓDULOS ABAIXO
+# INSTALE OS MÓDULOS ABAIXO
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 from pytube import YouTube
