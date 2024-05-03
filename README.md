@@ -1,4 +1,4 @@
-# Youtube Downloader por @victorbeser
+# Youtube Downloader por @victorbeser - Contribuição @fabioacarvalho
 
 Programa simples e básico para downloads utilizando Links do Youtube.
 
@@ -49,7 +49,7 @@ Precisamos instalar o PyInstaller:
 pip install pyinstaller
 ```
 
-## Para gerar um arquivo .exe exwecute o comando:
+## Para gerar um arquivo .exe execute o comando:
 
 ```powershell
 pyinstaller --onefile -w app.py
@@ -58,6 +58,10 @@ pyinstaller --onefile -w app.py
 ---
 
 ## Informações Complementares
+
+### Arquivo Design.py
+
+Conforme a prórpia orientação do QTD não altere nada neste arquivo, pois toda vez que for realizar a recompilação do arquivo, todas as informações serão perdidas.
 
 ### Paleta de cor:
 
