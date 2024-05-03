@@ -26,6 +26,9 @@ class Ui_MainWindow(object):
         MainWindow.resize(578, 665)
         MainWindow.setMinimumSize(QSize(578, 665))
         MainWindow.setMaximumSize(QSize(578, 665))
+        icon = QIcon()
+        icon.addFile(u"../../../../Downloads/Youtube-Icon-square-2340x2340.png", QSize(), QIcon.Normal, QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet(u"background-color: rgb(45, 50, 80);")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -78,7 +81,7 @@ class Ui_MainWindow(object):
         self.btnPath.setStyleSheet(u"border: 1px solid #F7B176;\n"
 "background-color: #F7B176;\n"
 "border-radius: 8px;\n"
-"box-shadow: 5px 5px 5px #F7B176;")
+"")
         self.result = QLabel(self.centralwidget)
         self.result.setObjectName(u"result")
         self.result.setGeometry(QRect(140, 490, 291, 41))

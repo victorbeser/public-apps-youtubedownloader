@@ -52,7 +52,7 @@ pip install pyinstaller
 ## Para gerar um arquivo .exe exwecute o comando:
 
 ```powershell
-pyinstaller --onefile -w main.py
+pyinstaller --onefile -w app.py
 ```
 
 ---

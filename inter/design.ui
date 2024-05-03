@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>YouTube Downloader - TikTok @victorbeser / @ofabioacarvalho</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../../../Downloads/Youtube-Icon-square-2340x2340.png</normaloff>../../../../Downloads/Youtube-Icon-square-2340x2340.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(45, 50, 80);</string>
   </property>
@@ -182,7 +186,7 @@ color: #FFF;</string>
      <string notr="true">border: 1px solid #F7B176;
 background-color: #F7B176;
 border-radius: 8px;
-box-shadow: 5px 5px 5px #F7B176;</string>
+</string>
     </property>
     <property name="text">
      <string>Escolher</string>
