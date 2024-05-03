@@ -1,12 +1,14 @@
-# Youtube Downloader por @victorbeser
+# Youtube Downloader por @victorbeser - Contribuição @fabioacarvalho
 
 Programa simples e básico para downloads utilizando Links do Youtube.
 
 <h2>Módulos para Instalação:</h2>
 
-TkInter;
+Rode o comando abaixo para instalar as bibliotecas:
 
-Pytube.
+```powershel
+pip install -r requirements.txt
+```
 
 <h2>Executáveis Windows e MacOS</h2>
 
@@ -20,3 +22,55 @@ Se algum dos executáveis não estiver funcionando no seu sistema, faça o downl
 Utilize o seguinte comando em seu terminal (na pasta onde realizou o download do "app.py"): pyinstaller --onefile app.py
 
 Espere terminar e o seu aplicativo executável estará disponível em 'dist/app'.
+
+---
+
+## Atualizar o desgin
+
+A arquivo de design está na pasta inter > design.ui para acessar o mesmo basta abrir o arquivo no aplicativo QT Designer que pode ser baixado pelo link abaixo:
+
+> Pasta inter significa interface.
+
+## Aplicativo: Qt Designer
+Após a instalação basta abrir o arquivo e realizar as alterações necessárias. Lembrando de salvar o arquivo na mesma pasta novamente.
+
+## Atualizando o arquivo design.py
+Para atualizar o arquivo design.py basta acessar a pasta inter e rodar o comanado abaixo:
+
+```powershell
+pyside6-uic inter/design.ui -o inter/design.py
+```
+
+## Gerando executável
+
+Precisamos instalar o PyInstaller:
+
+```powershell
+pip install pyinstaller
+```
+
+## Para gerar um arquivo .exe execute o comando:
+
+```powershell
+pyinstaller --onefile -w app.py
+```
+
+---
+
+## Informações Complementares
+
+### Arquivo Design.py
+
+Conforme a prórpia orientação do QTD não altere nada neste arquivo, pois toda vez que for realizar a recompilação do arquivo, todas as informações serão perdidas.
+
+### Paleta de cor:
+
+- Background: #2D3250
+- Inputs: #424769
+- Botão Escolher: #F7B176
+- Botão Baixar: #C1D37F
+- Outros: #676F9D
+
+### Fonte
+
+- Arial

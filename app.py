@@ -1,100 +1,129 @@
 
-##########################################################################
-#                                                                        #   
-#   Desenvolvido por:                                                    #   
-#                                                                        #   
-#           V          V  III CCCCCC   TTTTTTTTT OOOOOO RRRRRR           #
-#           V          V   I  C           T     O    O  R    R           #   
-#            V        V    I  C           T     O    O  R    R           #  
-#            V        V    I  C           T     O    O  RRRRR            #   
-#             V      V     I  C           T     O    O  R   R            #   
-#             V      V     I  C           T     O    O  R    R           #   
-#              V    V      I  C           T     O    O  R     R          #   
-#               V  V      III CCCCCC      T    OOOOOOO  R      R         #   
-#                                                                        #   
-#                            BBBBB    EEEEE   SSSS   EEEEE  RRRRR        #   
-#                            B    B   E       S      E      R    R       #   
-#                            BBBBB    EEEE     SSS   EEEE   RRRRR        #   
-#                            B    B   E           S  E      R  R         #   
-#                            BBBBB    EEEEE   SSSS   EEEEE  R   R        #   
-#                                                                        #   
-#                                                TikTok: @victorbeser    #   
-#                                                Instagram: @jvbeesan    #   
-#                                                                        #   
-##########################################################################
+###################################################################################
+#                                                                                 #   
+#   Desenvolvido por:                                                             #   
+#                                                                                 #   
+#           V          V  III CCCCCC   TTTTTTTTT OOOOOO RRRRRR                    #
+#           V          V   I  C           T     O    O  R    R                    #   
+#            V        V    I  C           T     O    O  R    R                    #  
+#            V        V    I  C           T     O    O  RRRRR                     #   
+#             V      V     I  C           T     O    O  R   R                     #   
+#             V      V     I  C           T     O    O  R    R                    #   
+#              V    V      I  C           T     O    O  R     R                   #   
+#               V  V      III CCCCCC      T    OOOOOOO  R      R                  #   
+#                                                                                 #   
+#                            BBBBB    EEEEE   SSSS   EEEEE  RRRRR                 #   
+#                            B    B   E       S      E      R    R                #   
+#                            BBBBB    EEEE     SSS   EEEE   RRRRR                 #   
+#                            B    B   E           S  E      R  R                  #   
+#                            BBBBB    EEEEE   SSSS   EEEEE  R   R                 #   
+#                                                                                 #   
+#                                                TikTok: @victorbeser             #   
+#                                                Instagram: @jvbeesan             #   
+#                                                                                 #
+#  -----------------------------------------------------------------------------  #
+#                                                                                 #
+#   Contribuição:                                                                 #   
+#                                                                                 #   
+#               FFFFF   AAAAA  BBBB    III   OOOO                                 #
+#               F      A     A B    B   I   O    O                                # 
+#               FFFF   AAAAAAA BBBB     I   O    O                                # 
+#               F      A     A B    B   I   O    O                                # 
+#               F      A     A BBBB    III   OOOO                                 # 
+#                                                                                 #
+#               CCCCCC    AAAAA  RRRRR   V     V   AAAAA  L      H    H   OOOOO   #
+#               C        A     A R    R   V   V   A     A L      H    H  O     O  #
+#               C        AAAAAAA RRRRR     V V    AAAAAAA L      HHHHHH  O     O  #
+#               C        A     A R   R      V     A     A L      H    H  O     O  #
+#                CCCCCC  A     A R    R     V     A     A LLLLL  H    H   OOOOO   #
+#                                                                                 #
+#                                                                                 #   
+#                                         TikTok: @ofabioacarvalho                #   
+#                                         Instagram: @ofabioacarvalho             #   
+#                                                                                 #   
+###################################################################################
 
 
-# INSTALE OS MÓDULOS ABAIXO
-import tkinter as tk
-from tkinter import ttk, filedialog, messagebox
+# INSTALE OS MÓDULOS ABAIXO (Leia o README.md)
+
+from PySide6.QtCore import Qt
 from pytube import YouTube
 import os
+import sys
 import ssl
-
+from inter.design import *
+from PySide6.QtWidgets import QMainWindow, QApplication, QFileDialog, QLineEdit, QPushButton, QMessageBox, QWidget
+import time
 
 # Desabilitar o SSL (não recomendado mas necessário)
 ssl._create_default_https_context = ssl._create_unverified_context
 
-class DownloaderApp:
+class DownloaderApp(QMainWindow, Ui_MainWindow):
 
     # Iniciar APP
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Youtube Downloader - TikTok @victorbeser")
-        self.root.geometry("400x200")
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        self.set_options()
 
-        self.link_label = tk.Label(root, text="Link:")
-        self.link_label.pack()
-        self.link_entry = tk.Entry(root, width=50)
-        self.link_entry.pack()
+        # Iniciando botões:
+        self.btnPath.clicked.connect(self.choose_folder)
+        self.btnDownload.clicked.connect(self.download)
 
-        self.option_label = tk.Label(root, text="Selecione a Opção:")
-        self.option_label.pack()
-        self.option_var = tk.StringVar()
-        self.option_menu = ttk.OptionMenu(root, self.option_var, "Audio mp3", "Audio mp3", "Video mp4")
-        self.option_menu.pack()
-
-        self.folder_frame = tk.Frame(root)
-        self.folder_frame.pack()
-        self.folder_path = tk.StringVar()
-        self.folder_path.set("Pasta de Download")
-        self.folder_label = tk.Label(self.folder_frame, textvariable=self.folder_path)
-        self.folder_label.pack(side=tk.LEFT)
-        self.folder_button = tk.Button(self.folder_frame, text="Escolher", command=self.choose_folder)
-        self.folder_button.pack(side=tk.RIGHT)
-
-        self.download_button = tk.Button(root, text="Baixar", command=self.download)
-        self.download_button.pack()
+    # Adicionar as opções no select-box
+    def set_options(self):
+        self.option.addItems(["Audio mp3", "Video mp4"])
 
     # Escolher pasta output
     def choose_folder(self):
-        folder_selected = filedialog.askdirectory()
-        if folder_selected:
-            self.folder_path.set(folder_selected)
-        
+        folder_path_target = QFileDialog.getExistingDirectory(self, "Selecione uma pasta", "/")
+        # Atualizar o texto do QLineEdit com o caminho da pasta selecionada
+        self.location.setText(folder_path_target)
+
+    def show_message_log(self, msg, type=None):
+        # Criar uma instância de QMessageBox
+        message_box = QMessageBox()
+        # Definir o ícone para indicar uma mensagem de sucesso (ícone de informação)
+        if type == "error":
+            message_box.setIcon(QMessageBox.Critical)
+        else:
+            message_box.setIcon(QMessageBox.Information)
+        # Definir o texto da mensagem
+        message_box.setText(msg)
+        # Exibir o pop-up de mensagem
+        message_box.exec()
+        return       
 
     # Funcão download
     def download(self):
-        link = self.link_entry.get()
-        option = self.option_var.get()
-        folder = self.folder_path.get()
+        link = self.link.text()
+        folder = self.location.text()
+        option = self.option.currentText()
 
 
         # Erro link inválido
         if not link:
-            self.show_message("Insira um link válido!")
+            self.show_message_log("Insira um link válido!")
             return
 
 
         # Erro pasta output não selecionada
         if not os.path.exists(folder):
-            self.show_message("Selecione uma pasta de download válida!")
+            self.show_message_log("Selecione uma pasta de download válida!")
             return
 
 
         # Iniciar download
         try:
             yt = YouTube(link)
+
+            # UX - Mensagens avisando o cliente
+            self.result.setText("Download iniciado, aguarde...")
+            self.btnDownload.setText("Carregando...")
+            self.btnDownload.setEnabled(False)
+            time.sleep(2)
+            self.show_message_log("Download iniciado, aguarde...")
+
             if option == "Audio mp3":
                 stream = yt.streams.filter(only_audio=True, file_extension='mp4').first()
                 filename = stream.download(folder)
@@ -104,15 +133,22 @@ class DownloaderApp:
                 stream = yt.streams.filter(file_extension='mp4').get_highest_resolution()
                 filename = stream.download(folder)
             
-            self.show_message(f"Download completo: {filename}")
+            # UX - Mensagens avisando o cliente
+            self.show_message_log(f"Download completo: {filename}")
+            self.result.setText(f"Download finalizado com sucesso")
+            self.btnDownload.setText("Baixar")
+            self.btnDownload.setEnabled(True)
         except Exception as e:
-            self.show_message(f"Erro ao fazer o download: {str(e)}")
+            # UX - Mensagens avisando o cliente
+            self.result.setText(f"Erro ao fazer o download")
+            self.btnDownload.setText("Baixar")
+            self.btnDownload.setEnabled(True)
+            self.show_message_log(f"Erro ao fazer o download: {str(e)}")
 
-    def show_message(self, message):
-        messagebox.showinfo("Mensagem", message)
 
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    app = DownloaderApp(root)
-    root.mainloop()
+    app = QApplication(sys.argv)
+    window = DownloaderApp()
+    window.show()
+    app.exec()
